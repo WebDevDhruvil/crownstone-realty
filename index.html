@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171614">
+  <meta name="description" content="Crownstone Realty — Exceptional Properties. Remarkable Places.">
+  <title>Crownstone Realty | Exceptional Properties. Remarkable Places.</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="Crownstone Realty home">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span><b>CROWNSTONE</b><small>REALTY</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#properties">Properties</a><a href="#properties">Buy</a><a href="#properties">Rent</a>
+        <a href="#sell">Sell</a><a href="#locations">Locations</a><a href="#about">About</a><a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="text-btn" id="authBtn" type="button">Login</button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a href="#properties">Properties</a><a href="#properties">Buy</a><a href="#properties">Rent</a>
+      <a href="#sell">Sell</a><a href="#locations">Locations</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <button class="mobile-login" id="mobileAuthBtn" type="button">Login</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="hero-media" aria-hidden="true"></div>
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <p class="eyebrow light">CROWNSTONE REALTY</p>
+        <h1>Exceptional Properties.<br><em>Remarkable Places.</em></h1>
+        <p class="hero-copy">Discover carefully selected residences and investment opportunities across the world's most desirable destinations.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#properties">Explore Properties <span>↗</span></a>
+          <button class="btn btn-ghost" type="button" data-action="viewing">Schedule a Viewing <span>→</span></button>
+        </div>
+      </div>
+
+      <form class="search-panel container" id="searchForm">
+        <div class="search-heading"><span>Property Search</span><small>Curated opportunities worldwide</small></div>
+        <label>Location<select id="filterLocation"><option value="">Any location</option><option>Dubai</option><option>London</option><option>New York</option><option>Miami</option><option>Toronto</option><option>Sydney</option></select></label>
+        <label>Property Type<select id="filterType"><option value="">Any type</option><option>Villa</option><option>Apartment</option><option>Penthouse</option><option>Townhouse</option><option>Estate</option></select></label>
+        <label>Buy / Rent<select id="filterTransaction"><option value="">Any</option><option value="Buy">Buy</option><option value="Rent">Rent</option></select></label>
+        <label>Price Range<select id="filterPrice"><option value="">Any price</option><option value="0-1000000">Under $1M</option><option value="1000000-3000000">$1M–$3M</option><option value="3000000-7000000">$3M–$7M</option><option value="7000000-999999999">$7M+</option></select></label>
+        <label>Bedrooms<select id="filterBeds"><option value="">Any</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option><option value="5">5+</option></select></label>
+        <button class="search-btn" type="submit">Search <span>↗</span></button>
+      </form>
+    </section>
+
+    <section class="section properties-section" id="properties">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">THE COLLECTION</p><h2>Featured residences</h2></div>
+          <p class="section-intro">A considered selection of homes, estates and investment properties across six global markets.</p>
+        </div>
+        <div class="filter-bar">
+          <span id="resultCount">0 properties</span>
+          <div class="filter-tools">
+            <select id="sortSelect" aria-label="Sort properties"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="newest">Newest</option></select>
+            <button id="clearFilters" class="link-btn" type="button">Clear filters</button>
+          </div>
+        </div>
+        <div class="property-grid" id="propertyGrid"></div>
+        <div class="no-results" id="noResults" hidden><h3>No matching properties</h3><p>Try widening your search criteria.</p><button class="btn btn-dark" id="clearFilters2" type="button">Reset search</button></div>
+      </div>
+    </section>
+
+    <section class="dark-feature">
+      <div class="container split-feature">
+        <div><p class="eyebrow gold">THE CROWNSTONE STANDARD</p><h2>Curated with a sharper eye.</h2></div>
+        <div><p>We focus on properties where architecture, location and long-term desirability align. Every listing in this demonstration collection is sample content designed to show the website experience.</p><a class="inline-link" href="#about">Discover our approach <span>→</span></a></div>
+      </div>
+    </section>
+
+    <section class="section locations" id="locations">
+      <div class="container">
+        <div class="section-head"><div><p class="eyebrow">GLOBAL REACH</p><h2>Remarkable places</h2></div><p class="section-intro">Explore representative opportunities in established luxury markets.</p></div>
+        <div class="location-grid" id="locationGrid"></div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <div class="about-image"></div>
+        <div class="about-copy"><p class="eyebrow">ABOUT CROWNSTONE</p><h2>A more considered way to find property.</h2>
+          <p>Crownstone Realty is presented as a premium international property brand built around curated homes, market knowledge and attentive client service.</p>
+          <p>Our approach prioritizes clarity: useful property information, straightforward communication and a refined digital experience without overstating credentials or inventing performance claims.</p>
+          <div class="about-points"><div><strong>01</strong><span>Curated properties</span></div><div><strong>02</strong><span>International markets</span></div><div><strong>03</strong><span>Client-first service</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section sell" id="sell">
+      <div class="container form-section">
+        <div class="form-copy"><p class="eyebrow">SELL WITH US</p><h2>Position your property with purpose.</h2><p>Share the essentials and our team can review your property enquiry. This website phase stores submissions locally for demonstration only; no live agent workflow is connected.</p></div>
+        <form class="lux-form" id="sellForm">
+          <div class="form-row"><label>Full name<input name="name" maxlength="80" required autocomplete="name"></label><label>Email<input name="email" type="email" maxlength="120" required autocomplete="email"></label></div>
+          <div class="form-row"><label>Mobile<input name="mobile" inputmode="tel" maxlength="24" required></label><label>Property location<input name="location" maxlength="100" required></label></div>
+          <div class="form-row"><label>Property type<select name="type" required><option value="">Select</option><option>Villa</option><option>Apartment</option><option>Penthouse</option><option>Townhouse</option><option>Estate</option></select></label><label>Expected price<input name="price" inputmode="decimal" maxlength="30" required></label></div>
+          <div class="form-row"><label>Bedrooms<input name="bedrooms" inputmode="numeric" maxlength="3"></label><label>Bathrooms<input name="bathrooms" inputmode="numeric" maxlength="3"></label></div>
+          <label>Message<textarea name="message" maxlength="1000" rows="5"></textarea></label>
+          <button class="btn btn-dark" type="submit">Submit property enquiry <span>↗</span></button><div class="form-status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-grid">
+        <div><p class="eyebrow">CONTACT</p><h2>Let's discuss your next move.</h2><p>For this standalone demonstration, contact submissions remain on this device. Connect a trusted backend/API later for production handling.</p></div>
+        <form class="lux-form" id="contactForm">
+          <div class="form-row"><label>Name<input name="name" maxlength="80" required></label><label>Email<input name="email" type="email" maxlength="120" required></label></div>
+          <div class="form-row"><label>Mobile<input name="mobile" inputmode="tel" maxlength="24" required></label><label>Subject<input name="subject" maxlength="120" required></label></div>
+          <label>Message<textarea name="message" maxlength="1200" rows="6" required></textarea></label>
+          <button class="btn btn-gold-dark" type="submit">Send enquiry <span>↗</span></button><div class="form-status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-top">
+      <div><a class="brand footer-brand" href="#home"><span class="brand-mark">C</span><span><b>CROWNSTONE</b><small>REALTY</small></span></a><p>Exceptional Properties. Remarkable Places.</p></div>
+      <div class="footer-links"><div><b>Explore</b><a href="#properties">Properties</a><a href="#properties">Buy</a><a href="#properties">Rent</a><a href="#sell">Sell</a></div><div><b>Company</b><a href="#locations">Locations</a><a href="#about">About</a><a href="#contact">Contact</a></div><div><b>Legal</b><a href="#" data-info="privacy">Privacy</a><a href="#" data-info="terms">Terms</a></div></div>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="year"></span> Crownstone Realty. Demonstration website.</span><span>International property · Sample content</span></div>
+  </footer>
+
+  <div class="modal-backdrop" id="propertyModal" hidden><div class="modal property-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" type="button" data-close aria-label="Close">×</button><div id="propertyDetail"></div>
+  </div></div>
+
+  <div class="modal-backdrop" id="formModal" hidden><div class="modal small-modal" role="dialog" aria-modal="true" aria-labelledby="formModalTitle">
+    <button class="modal-close" type="button" data-close aria-label="Close">×</button><div id="formModalContent"></div>
+  </div></div>
+
+  <div class="modal-backdrop" id="authModal" hidden><div class="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="modal-close" type="button" data-close aria-label="Close">×</button>
+    <div class="auth-tabs"><button class="active" data-auth-tab="login">Login</button><button data-auth-tab="signup">Create account</button></div>
+    <div id="authContent"></div>
+  </div></div>
+
+  <div class="modal-backdrop" id="dashboardModal" hidden><div class="modal dashboard-modal" role="dialog" aria-modal="true" aria-labelledby="dashboardTitle">
+    <button class="modal-close" type="button" data-close aria-label="Close">×</button><div id="dashboardContent"></div>
+  </div></div>
+
+  <!-- Firebase Web SDK: public web configuration only. Replace values in js/script.js. -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
