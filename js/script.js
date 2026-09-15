@@ -10,6 +10,9 @@ const FIREBASE_CONFIG = {
   appId: "1:1036081770202:web:ac1f5b34df985a28437fe3"
 };
 
+const RECAPTCHA_ENTERPRISE_SITE_KEY = "6LdffrotAAAAAC9ggzXOhwpEblLsFzHIrqblMSuC";
+const APP_CHECK_PRODUCTION_HOSTS = new Set(["crownstone-realty.vercel.app"]);
+
 const properties = [
  {id:"cs-001",title:"Palm Jumeirah Residence",location:"Dubai",type:"Villa",transaction:"Buy",price:4850000,bedrooms:5,bathrooms:6,area:"6,450 sq ft",year:2025,featured:true,image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=80",description:"Demonstration listing for a contemporary waterfront residence with generous entertaining spaces and private outdoor areas.",amenities:["Private pool","Sea view","Smart home","Gated parking","Guest suite","Outdoor kitchen"]},
  {id:"cs-002",title:"Mayfair House",location:"London",type:"Townhouse",transaction:"Buy",price:7350000,bedrooms:5,bathrooms:4,area:"4,180 sq ft",year:2024,featured:true,image:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80",description:"Demonstration listing representing an elegant central London townhouse with a quiet, residential character.",amenities:["Private garden","Study","Fireplace","Wine room","Concierge","Secure entry"]},
@@ -122,8 +125,17 @@ function renderDashboard(tab="overview"){
 function firebaseReady(){return typeof firebase!=="undefined"&&FIREBASE_CONFIG.apiKey.startsWith("AIza")&&FIREBASE_CONFIG.projectId!=="PASTE_PROJECT_ID"}
 function initFirebase(){
   if(!firebaseReady()){console.info("Crownstone: Firebase is not configured. Website demo remains usable; authentication is disabled until the public Firebase web config is added.");return}
-  try{firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();auth.onAuthStateChanged(user=>{currentUser=user;$("#authBtn").textContent=user?"Dashboard":"Login";$("#mobileAuthBtn").textContent=user?"Dashboard":"Login";})}
-  catch(e){auth=null;console.error("Crownstone Firebase initialization failed:",e);showStatus(document.querySelector("#authContent .form-status"),"Please try again.")}
+  try{
+    firebase.initializeApp(FIREBASE_CONFIG);
+
+    if(RECAPTCHA_ENTERPRISE_SITE_KEY !== "PASTE_RECAPTCHA_ENTERPRISE_SITE_KEY" && APP_CHECK_PRODUCTION_HOSTS.has(window.location.hostname) && firebase.appCheck){
+      const appCheck=firebase.appCheck();
+      appCheck.activate(new firebase.appCheck.ReCaptchaEnterpriseProvider(RECAPTCHA_ENTERPRISE_SITE_KEY),true);
+    }
+
+    auth=firebase.auth();
+    auth.onAuthStateChanged(user=>{currentUser=user;$("#authBtn").textContent=user?"Dashboard":"Login";$("#mobileAuthBtn").textContent=user?"Dashboard":"Login";})
+  }catch(e){console.warn("Firebase initialization failed.");}
 }
 function authUI(mode="login"){
   $("#authContent").innerHTML=mode==="login"?`<p class="eyebrow">CLIENT ACCESS</p><h2 id="authTitle">Welcome back.</h2><p class="auth-note">${firebaseReady()?"Secure authentication is handled by Firebase.":"Firebase is not configured yet. Add the public web config in js/script.js to enable authentication."}</p><form class="auth-form" id="loginForm"><label>Email<input name="email" type="email" maxlength="120" required autocomplete="email"></label><label>Password<input name="password" type="password" maxlength="128" required autocomplete="current-password"></label><button class="btn btn-dark" type="submit">Login <span>→</span></button><div class="auth-links"><button type="button" data-auth-mode="reset">Forgot password?</button><button type="button" data-auth-mode="signup">Create account</button></div><div class="form-status"></div></form>`:
@@ -155,7 +167,7 @@ function authResetUI(){ $("#authContent").innerHTML=`<p class="eyebrow">PASSWORD
 
 document.addEventListener("click",e=>{
   const t=e.target.closest("button,a"); if(!t)return;
-  if(t.matches("[data-close]") || e.target.classList.contains("modal-backdrop")) closeModals();
+  if(t.matches("[data-close]")||e.target.classList.contains("modal-backdrop"))closeModals();
   if(t.id==="menuBtn"){const n=$("#mobileNav");n.hidden=!n.hidden;t.setAttribute("aria-expanded",String(!n.hidden))}
   if(t.id==="authBtn"||t.id==="mobileAuthBtn"){if(t.id==="mobileAuthBtn"){$("#mobileNav").hidden=true;$("#menuBtn").setAttribute("aria-expanded","false")}openAuth()}
   if(t.dataset.view)openProperty(t.dataset.view);
@@ -165,8 +177,8 @@ document.addEventListener("click",e=>{
   if(t.dataset.location){$("#filterLocation").value=t.dataset.location;applyFilters();$("#properties").scrollIntoView({behavior:"smooth"})}
   if(t.dataset.dash)renderDashboard(t.dataset.dash);
   if(t.dataset.logout){auth?.signOut();closeModals()}
-  if(t.dataset.authMode){t.dataset.authMode==="reset"?authResetUI():authUI(t.dataset.authMode)}
   if(t.dataset.authTab){authUI(t.dataset.authTab)}
+  if(t.dataset.authMode){t.dataset.authMode==="reset"?authResetUI():authUI(t.dataset.authMode)}
   if(t.dataset.info){e.preventDefault();$("#formModalContent").innerHTML=`<h2>${t.dataset.info==="privacy"?"Privacy":"Terms"}</h2><p class="auth-note">This demonstration website does not represent a live brokerage. Forms and saved properties are stored locally on this device. Production privacy, terms, data retention and consent policies must be finalized before deployment.</p>`;openModal("#formModal")}
 });
 document.addEventListener("submit",e=>{
