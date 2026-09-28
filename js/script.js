@@ -225,13 +225,13 @@ if (leadForm) {
       status: "New"
     };
 
-    try {
-      const response = await fetch(`${https://kliuhmapmjsblojxlsmm.supabase.co/rest/v1/}/rest/v1/leads`, {
+        try {
+      const response = await fetch("https://kliuhmapmjsblojxlsmm.supabase.co/rest/v1/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${sb_publishable_wFSxzCNilC_DfWL4q44MSA_OrC5uNbd}`,
+          "apikey": "sb_publishable_wFSxzCNilC_DfWL4q44MSA_OrC5uNbd",
+          "Authorization": "Bearer sb_publishable_wFSxzCNilC_DfWL4q44MSA_OrC5uNbd",
           "Prefer": "return=minimal"
         },
         body: JSON.stringify(payload)
