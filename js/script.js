@@ -243,7 +243,7 @@ if (leadForm) {
       } else {
         const errText = await response.text();
         console.error("Submission failed:", errText);
-        alert("Submission failed. Please check console or try again.");
+        alert(`Supabase Error: ${errText}`);
       }
     } catch (error) {
       console.error("Network error:", error);
