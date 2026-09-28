@@ -197,3 +197,59 @@ $("#clearFilters").addEventListener("click",clearFilters);$("#clearFilters2").ad
 window.addEventListener("scroll",()=>$("#siteHeader").classList.toggle("scrolled",scrollY>20));
 $("#year").textContent=new Date().getFullYear();
 renderProperties();renderLocations();initFirebase();
+
+// Supabase credentials
+const SUPABASE_URL = "AAPKA_PROJECT_URL_YAHAN"; // jaise: https://xxxx.supabase.co
+const SUPABASE_ANON_KEY = "AAPKI_PUBLISHABLE_KEY_YAHAN";
+
+// Form element select karein
+const leadForm = document.querySelector("#inquiryForm"); // Apne form tag ki ID yahan dalein
+
+if (leadForm) {
+  leadForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const submitBtn = leadForm.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
+    // Form inputs se data extract karna
+    const payload = {
+      name: document.querySelector("#name")?.value || "",
+      email: document.querySelector("#email")?.value || "",
+      phone: document.querySelector("#phone")?.value || "",
+      property: document.querySelector("#property")?.value || "Luxury Property Inquiry",
+      budget: document.querySelector("#budget")?.value || "Not Specified",
+      location: document.querySelector("#location")?.value || "Dubai / Global",
+      timeline: document.querySelector("#timeline")?.value || "Immediate",
+      message: document.querySelector("#message")?.value || "",
+      status: "New"
+    };
+
+    try {
+      const response = await fetch(`${https://kliuhmapmjsblojxlsmm.supabase.co/rest/v1/}/rest/v1/leads`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${sb_publishable_wFSxzCNilC_DfWL4q44MSA_OrC5uNbd}`,
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        alert("Inquiry submitted successfully! A private advisor will contact you.");
+        leadForm.reset();
+      } else {
+        const errText = await response.text();
+        console.error("Submission failed:", errText);
+        alert("Submission failed. Please check console or try again.");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Network error. Please try again later.");
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+}
