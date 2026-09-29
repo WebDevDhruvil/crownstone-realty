@@ -241,7 +241,13 @@ const payload = {
       });
 
       if (response.ok) {
-        alert("Inquiry submitted successfully! A private advisor will contact you.");
+        const toast = document.getElementById("toastNotification");
+if (toast) {
+  toast.classList.add("show");
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 4000);
+}
         leadForm.reset();
       } else {
         const errText = await response.text();
