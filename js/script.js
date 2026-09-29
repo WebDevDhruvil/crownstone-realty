@@ -262,11 +262,8 @@ const payload = {
           },
           "GRgibRhB91SlY58kb"
         ).then(
-          function(res) {
-            alert("SUCCESS: Mail sent! Status: " + res.status);
-          },
-          function(err) {
-            alert("EMAILJS ERROR: " + JSON.stringify(err));
+          (res) => consol.log("Lead notification delivered!", res.status),
+          (err) => consol.error("EmailJS Error:", err)
           }
         );
             
