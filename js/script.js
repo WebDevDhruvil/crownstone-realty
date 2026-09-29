@@ -240,15 +240,36 @@ const payload = {
         body: JSON.stringify(payload)
       });
 
-      if (response.ok) {
+            if (response.ok) {
+        // Luxury Toast Show Karein
         const toast = document.getElementById("toastNotification");
-if (toast) {
-  toast.classList.add("show");
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 4000);
-}
+        if (toast) {
+          toast.classList.add("show");
+          setTimeout(() => {
+            toast.classList.remove("show");
+          }, 4000);
+        }
+
+        // EmailJS: Gmail par instant notification bhejein
+        if (window.emailjs) {
+          emailjs.send(
+            "service_7pmz83g",
+            "template_1nnqb9k",
+            {
+              name: payload.name,
+              email: payload.email,
+              phone: payload.phone,
+              message: payload.message
+            },
+            "GRgibRhB91SlY58kb"
+          ).then(
+            () => console.log("Lead notification sent to Gmail!"),
+            (err) => console.error("EmailJS Error:", err)
+          );
+        }
+
         leadForm.reset();
+            }
       } else {
         const errText = await response.text();
         console.error("Submission failed:", errText);
