@@ -211,19 +211,22 @@ if (leadForm) {
 
     const submitBtn = leadForm.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true;
+     
+    // Form inputs se data extract karna 
+    const formData = new FormData(leadForm);
 
-    // Form inputs se data extract karna
-    const payload = {
-      name: document.querySelector("#name")?.value || "",
-      email: document.querySelector("#email")?.value || "",
-      phone: document.querySelector("#phone")?.value || "",
-      property: document.querySelector("#property")?.value || "Luxury Property Inquiry",
-      budget: document.querySelector("#budget")?.value || "Not Specified",
-      location: document.querySelector("#location")?.value || "Dubai / Global",
-      timeline: document.querySelector("#timeline")?.value || "Immediate",
-      message: document.querySelector("#message")?.value || "",
-      status: "New"
-    };
+const payload = {
+  name: formData.get("name") || "",
+  email: formData.get("email") || "",
+  phone: formData.get("mobile") || "",
+  message: formData.get("message") || "",
+  property: "luxury property inquiry",
+  budget: "not specified",
+  location: "not specified",
+  timeline: "immediate",
+  status: "new"
+};
+     
 
         try {
       const response = await fetch("https://kliuhmapmjsblojxlsmm.supabase.co/rest/v1/leads", {
