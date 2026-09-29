@@ -250,23 +250,26 @@ const payload = {
           }, 4000);
         }
 
-                // EmailJS: Gmail par instant notification bhejein
-        if (window.emailjs) {
-          emailjs.send(
-            "service_7pmz83g",
-            "template_1nnqb9k",
-            {
-              name: payload.name,
-              email: payload.email,
-              phone: payload.phone,
-              message: payload.message
-            },
-            "GRgibRhB91SlY58kb"
-          ).then(
-            () => console.log("Lead notification sent to Gmail!"),
-            (err) => console.error("EmailJS Error:", err)
-          );
-        }
+                        // EmailJS: Alert ke sath trigger
+        emailjs.send(
+          "service_7pmz83g",
+          "template_1nnqb9k",
+          {
+            name: payload.name,
+            email: payload.email,
+            phone: payload.phone,
+            message: payload.message
+          },
+          "GRgibRhB91SlY58kb"
+        ).then(
+          function(res) {
+            alert("SUCCESS: Mail sent! Status: " + res.status);
+          },
+          function(err) {
+            alert("EMAILJS ERROR: " + JSON.stringify(err));
+          }
+        );
+               
 
         leadForm.reset();
       } else {
