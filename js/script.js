@@ -250,7 +250,7 @@ const payload = {
           }, 4000);
         }
 
-        // EmailJS: Gmail par instant notification bhejein
+                // EmailJS: Gmail par instant notification bhejein
         if (window.emailjs) {
           emailjs.send(
             "service_7pmz83g",
@@ -269,7 +269,6 @@ const payload = {
         }
 
         leadForm.reset();
-            }
       } else {
         const errText = await response.text();
         console.error("Submission failed:", errText);
