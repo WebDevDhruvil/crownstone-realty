@@ -250,10 +250,10 @@ const payload = {
           }, 4000);
         }
 
-                        // EmailJS: Alert ke sath trigger
+               // EmailJS: Naye Template ID ke sath
         emailjs.send(
           "service_7pmz83g",
-          "template_1nnqb9k",
+          "template_wy293so",
           {
             name: payload.name,
             email: payload.email,
@@ -269,8 +269,7 @@ const payload = {
             alert("EMAILJS ERROR: " + JSON.stringify(err));
           }
         );
-               
-
+            
         leadForm.reset();
       } else {
         const errText = await response.text();
